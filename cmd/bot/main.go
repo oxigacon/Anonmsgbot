@@ -127,7 +127,7 @@ func main() {
 					continue
 				}
 
-				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Send your anonymous message:")
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Отправь анонимное сообщение:")
 				bot.Send(msg)
 			}
 			continue
@@ -140,7 +140,7 @@ func main() {
 			err := db.QueryRow("SELECT unique_id FROM sessions WHERE anon_id = ?", update.Message.From.ID).Scan(&uniqueID)
 			if err != nil {
 				log.Printf("Error finding session: %v", err)
-				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Please start with a valid link using /start <unique_id>")
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Пожалуйста начни с валидной ссылкой /start <unique_id>")
 				bot.Send(msg)
 				continue
 			}
@@ -162,7 +162,7 @@ func main() {
 			}
 
 			// Forward to owner
-			msg := tgbotapi.NewMessage(ownerID, "Anonymous message: "+update.Message.Text)
+			msg := tgbotapi.NewMessage(ownerID, "Тебе пришло сообщение: "+update.Message.Text)
 			bot.Send(msg)
 		}
 	}
